@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MANANPREET SINGH // THE DUALITY</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Inter:wght@400;900&family=Space+Mono&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #050505;
+            --accent: #ff003c;
+            --text: #ffffff;
+            --card-bg: rgba(255, 255, 255, 0.03);
+        }
+
+        .rave-mode {
+            --bg: #1a0033;
+            --accent: #39ff14;
+            --text: #f0f0f0;
+            --card-bg: rgba(57, 255, 20, 0.05);
+        }
+
+        * { cursor: none; margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background-color: var(--bg); 
+            color: var(--text); 
+            font-family: 'Inter', sans-serif; 
+            transition: background 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+            overflow-x: hidden;
+        }
+
+        /* --- UI ELEMENTS --- */
+        .portal-section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            transition: height 1s ease-in-out;
+        }
+
+        .fingerprint-scanner {
+            width: 180px;
+            height: 180px;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .scan-anim {
+            position: absolute;
+            width: 100%;
+            height: 4px;
+            background: var(--accent);
+            top: 0;
+            box-shadow: 0 0 20px var(--accent);
+            animation: scanLoop 2.5s infinite ease-in-out;
+        }
+
+        @keyframes scanLoop { 0%, 100% { top: 15%; } 50% { top: 85%; } }
+
+        .main-content {
+            display: none; /* Revealed on unlock */
+            grid-template-columns: repeat(12, 1fr);
+            gap: 25px;
+            padding: 5% 10%;
+            opacity: 0;
+            transform: translateY(100px);
+        }
+
+        .giant-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 50px;
+            transition: 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .rave-mode .giant-card {
+            border-color: var(--accent);
+            transform: rotate(-0.5deg) skewX(0.5deg);
+        }
+
+        /* Spotify Container Fix */
+        .spotify-frame {
+            grid-column: span 12;
+            margin: 40px 0;
+            border: 4px solid var(--accent);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        #cursor {
+            position: fixed; width: 12px; height: 12px; background: var(--accent);
+            border-radius: 50%; pointer-events: none; z-index: 10000;
+        }
+
+        .font-sync { font-family: 'Syncopate', sans-serif; }
+    </style>
+</head>
+<body>
+
+    <div id="cursor"></div>
+
+    <div class="portal-section" id="entry-gate">
+        <h1 class="font-sync text-5xl md:text-7xl mb-12 tracking-tighter" id="gate-title">IDENTITY_LOCKED</h1>
+        <div class="fingerprint-scanner" id="biometric-btn">
+            <div class="scan-anim"></div>
+            <i data-lucide="fingerprint" class="w-20 h-20 text-[var(--accent)]"></i>
+        </div>
+        <p class="mt-10 font-mono text-[10px] tracking-[0.5em] opacity-40 uppercase">Click to Authenticate // Toggle Duality</p>
+    </div>
+
+    <main class="main-content" id="main-system">
+        
+        <div class="col-span-12 md:col-span-8 giant-card">
+            <span class="text-[10px] font-sync text-[var(--accent)] tracking-[0.3em]">/ GLOBAL_OPERATIONS</span>
+            <h2 class="text-7xl font-black mt-6 uppercase italic leading-none" id="main-heading">AIESEC GLOBAL</h2>
+            <p class="text-2xl mt-8 opacity-70 leading-relaxed max-w-2xl">
+                Senior Manager for Global Incoming Sector. Executing complex logistical pipelines across 80+ countries. 
+                Cybersecurity meets Corporate Diplomacy.
+            </p>
+            <div class="flex gap-16 mt-12">
+                <div><span class="text-6xl font-bold">80+</span><br><span class="text-[10px] uppercase font-sync opacity-40">Countries</span></div>
+                <div><span class="text-6xl font-bold">CYBER</span><br><span class="text-[10px] uppercase font-sync opacity-40">Specialist</span></div>
+            </div>
+        </div>
+
+        <div class="col-span-12 md:col-span-4 giant-card flex flex-col justify-center items-center text-center">
+            <div class="w-24 h-24 bg-[var(--accent)] rounded-full mb-8 flex items-center justify-center">
+                <i data-lucide="shield-check" class="text-black w-10 h-10"></i>
+            </div>
+            <h3 class="font-sync text-lg">B.TECH CYBERSECURITY</h3>
+            <p class="text-xs opacity-50 mt-4 uppercase tracking-[0.3em]">Raipur, Chhattisgarh // Ongoing</p>
+        </div>
+
+        <div class="spotify-frame">
+            <div class="p-5 bg-black flex justify-between items-center border-b border-white/10">
+                <span class="font-sync text-[10px] tracking-widest" id="audio-label">VAULT_AUDIO_STREAM</span>
+                <div class="flex items-center gap-3">
+                    <div class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div>
+                    <span class="text-[10px] font-mono">ENCRYPTED_FEED</span>
+                </div>
+            </div>
+            <iframe 
+                id="spotify-widget"
+                src="" 
+                width="100%" height="500" 
+                frameBorder="0" allowfullscreen="" 
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                loading="lazy">
+            </iframe>
+        </div>
+
+        <div class="col-span-12 md:col-span-6 giant-card">
+            <h4 class="font-sync text-xs mb-8 tracking-[0.4em] text-[var(--accent)]">TECHNICAL_STACK</h4>
+            <div class="flex flex-wrap gap-4">
+                <span class="border border-white/10 px-6 py-3 text-xs font-bold">PYTHON</span>
+                <span class="border border-white/10 px-6 py-3 text-xs font-bold">C++</span>
+                <span class="border border-white/10 px-6 py-3 text-xs font-bold">JAVA</span>
+                <span class="border border-white/10 px-6 py-3 text-xs font-bold">REACT</span>
+                <span class="border border-white/10 px-6 py-3 text-xs font-bold">FLUTTER</span>
+            </div>
+        </div>
+
+        <div class="col-span-12 md:col-span-6 giant-card">
+            <h4 class="font-sync text-xs mb-8 tracking-[0.4em] text-[var(--accent)]">EVENT_ARCHIVE</h4>
+            <p class="text-sm uppercase leading-loose opacity-60">
+                Lead Executive: Raves, Social Nights, Concerts, Hackathons, MUNs. 
+                Managing the intersection of human chaos and technical precision.
+            </p>
+        </div>
+
+    </main>
+
+    <script>
+        lucide.createIcons();
+
+        // --- THE DUALITY ENGINE ---
+        const btn = document.getElementById('biometric-btn');
+        const gate = document.getElementById('entry-gate');
+        const system = document.getElementById('main-system');
+        const gateTitle = document.getElementById('gate-title');
+        const body = document.body;
+        const mainHeading = document.getElementById('main-heading');
+        const audioLabel = document.getElementById('audio-label');
+
+        let isUnlocked = false;
+        let isRave = false;
+
+        btn.addEventListener('click', () => {
+            if(!isUnlocked) {
+                isUnlocked = true;
+                gateTitle.innerText = "ACCESS_GRANTED";
+                gateTitle.style.color = "var(--accent)";
+                
+                gsap.to(gate, { height: "30vh", duration: 1.2, ease: "expo.inOut" });
+                system.style.display = 'grid';
+                gsap.to(system, { opacity: 1, y: 0, duration: 1, delay: 0.5, ease: "power4.out" });
+            } else {
+                isRave = !isRave;
+                if(isRave) {
+                    body.classList.add('rave-mode');
+                    mainHeading.innerText = "RAVE ARCHITECT";
+                    audioLabel.innerText = "RAVE_AUDIO_ACTIVE";
+                    gsap.to(".giant-card", { rotation: 0.5, duration: 0.4 });
+                } else {
+                    body.classList.remove('rave-mode');
+                    mainHeading.innerText = "AIESEC GLOBAL";
+                    audioLabel.innerText = "VAULT_AUDIO_STREAM";
+                    gsap.to(".giant-card", { rotation: 0, duration: 0.4 });
+                }
+            }
+        });
+
+        // --- CURSOR ---
+        const cursor = document.getElementById('cursor');
+        window.addEventListener('mousemove', (e) => {
+            gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0 });
+        });
+
+        // --- THE SPOTIFY FIXER ---
+        function updatePlaylist(playlistLink) {
+            const spotifyIframe = document.getElementById('spotify-widget');
+            let playlistId = playlistLink;
+
+            // Extracts ID from standard links or handles direct IDs
+            if (playlistLink.includes("spotify.com")) {
+                const parts = playlistLink.split('/');
+                playlistId = parts[parts.length - 1].split('?')[0];
+            }
+
+            // Injects the ID into the working Embed URL
+            spotifyIframe.src = `https://open.spotify.com/embed/playlist/${playlistId}?utm_source=generator&theme=0`;
+        }
+        
+        // PASTE YOUR PLAYLIST LINK OR ID HERE
+        updatePlaylist("37i9dQZF1DXcBWIGoYBM3M"); // Example ID: Phonk/Rave Hits
+
+    </script>
+</body>
+</html>
